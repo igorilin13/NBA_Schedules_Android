@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
+    implementation(libs.androidx.splashscreen)
+
     debugImplementation(libs.bundles.compose.debug)
 
     testImplementation(libs.junit)
