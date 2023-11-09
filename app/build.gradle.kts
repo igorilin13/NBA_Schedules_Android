@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.github.igorilin13.nbaschedules"
-    compileSdk = 34
+    compileSdk = appConfig.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.github.igorilin13.nbaschedules"
-        minSdk = 28
-        targetSdk = 34
+        minSdk = appConfig.versions.minSdk.get().toInt()
+        targetSdk = appConfig.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

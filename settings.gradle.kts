@@ -11,7 +11,15 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("appConfig") {
+            version("compileSdk", "34")
+            version("minSdk", "26")
+            version("targetSdk", "34")
+        }
+    }
 }
 
 rootProject.name = "NBA Schedules"
 include(":app")
+include(":data:settings")
