@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:favorite"))
     implementation(project(":data:settings"))
 
     implementation(libs.androidx.ktx)

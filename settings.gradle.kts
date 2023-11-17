@@ -23,3 +23,5 @@ dependencyResolutionManagement {
 rootProject.name = "NBA Schedules"
 include(":app")
 include(":data:settings")
+include(":feature:favorite")
+include(":common:ui")

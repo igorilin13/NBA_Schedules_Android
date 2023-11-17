@@ -16,6 +16,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.igorilin13.data.settings.api.SettingsRepository
+import com.github.igorilin13.feature.favorite.api.FavoriteFeatureApi
+import com.github.igorilin13.feature.favorite.api.FavoriteFeatureApiFactory
 import com.github.igorilin13.nbaschedules.ui.theme.NBASchedulesTheme
 import javax.inject.Inject
 
@@ -24,10 +26,16 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var settingsRepository: SettingsRepository
 
+    private lateinit var favoriteFeatureApi: FavoriteFeatureApi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        (application as NbaApplication).appComponent.inject(this)
+
+        val appComponent = (application as NbaApplication).appComponent
+        appComponent.inject(this)
+
+        favoriteFeatureApi = FavoriteFeatureApiFactory.create(appComponent.favoriteSubcomponent())
 
         setContent {
             NBASchedulesTheme {
@@ -38,6 +46,7 @@ class MainActivity : ComponentActivity() {
                         StartScreen(navController)
                     }
 
+                    favoriteFeatureApi.registerUi(this)
                 }
             }
         }
@@ -49,7 +58,7 @@ class MainActivity : ComponentActivity() {
             if (settingsRepository.isOnboardingComplete()) {
 
             } else {
-
+                favoriteFeatureApi.navigateToOnboarding(navController)
             }
         }
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
