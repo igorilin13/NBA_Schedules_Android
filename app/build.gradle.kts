@@ -51,6 +51,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data:settings"))
+
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -59,6 +61,7 @@ dependencies {
     implementation(libs.androidx.splashscreen)
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
+    implementation(libs.datastore)
 
     debugImplementation(libs.bundles.compose.debug)
 
