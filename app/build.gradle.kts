@@ -19,6 +19,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "SERVICE_URL", "\"https://www.balldontlie.io/\"")
     }
 
     buildTypes {
@@ -39,6 +40,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
@@ -53,6 +55,7 @@ android {
 dependencies {
     implementation(project(":feature:favorite"))
     implementation(project(":data:settings"))
+    implementation(project(":common:network"))
 
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -63,8 +66,11 @@ dependencies {
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
     implementation(libs.datastore)
+    implementation(libs.bundles.network)
 
     debugImplementation(libs.bundles.compose.debug)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.noop)
 
     testImplementation(libs.junit)
 
