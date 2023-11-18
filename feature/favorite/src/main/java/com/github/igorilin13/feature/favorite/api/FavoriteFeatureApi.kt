@@ -1,10 +1,9 @@
 package com.github.igorilin13.feature.favorite.api
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 
 interface FavoriteFeatureApi {
-    fun registerUi(navGraphBuilder: NavGraphBuilder)
+    fun registerUi(navGraphBuilder: NavGraphBuilder, onOnboardingComplete: () -> Unit)
 
-    fun navigateToOnboarding(navController: NavController)
+    fun onboardingNavigationRoute(): String
 }

@@ -55,7 +55,9 @@ android {
 dependencies {
     implementation(project(":feature:favorite"))
     implementation(project(":data:settings"))
+    implementation(project(":data:teams"))
     implementation(project(":common:network"))
+    implementation(project(":common:ui"))
 
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

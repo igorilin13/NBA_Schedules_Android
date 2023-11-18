@@ -4,9 +4,9 @@ import com.github.igorilin13.feature.favorite.impl.onboarding.di.OnboardingScree
 import dagger.Subcomponent
 
 @Subcomponent
-interface FavoriteFeatureComponent {
+abstract class FavoriteFeatureComponent {
 
-    fun onboardingScreenComponentFactory(): OnboardingScreenComponent.Factory
+    internal abstract fun onboardingScreenComponentFactory(): OnboardingScreenComponent.Factory
 
     @Subcomponent.Factory
     interface Factory {

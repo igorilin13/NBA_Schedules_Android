@@ -4,4 +4,6 @@ interface SettingsRepository {
     suspend fun isOnboardingComplete(): Boolean
 
     suspend fun setOnboardingComplete()
+
+    suspend fun saveFavoriteTeam(id: Int)
 }

@@ -15,4 +15,7 @@ internal class SettingsRepositoryImpl @Inject constructor(
         localDataSource.setOnboardingComplete(true)
     }
 
+    override suspend fun saveFavoriteTeam(id: Int) {
+        localDataSource.setFavoriteTeam(id)
+    }
 }

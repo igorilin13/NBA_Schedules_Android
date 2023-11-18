@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="team_list_load_error">Could not load team list, please try again later</string>
+    <string name="title_select_team">Select your team</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_continue">Continue</string>
+</resources>

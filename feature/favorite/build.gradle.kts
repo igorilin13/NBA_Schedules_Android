@@ -32,11 +32,14 @@ android {
 
 dependencies {
     implementation(project(":data:settings:"))
+    implementation(project(":data:teams:"))
     implementation(project(":common:ui:"))
+    implementation(project(":common:util:"))
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
+    implementation(libs.bundles.network)
 
     debugImplementation(libs.bundles.compose.debug)
 }
