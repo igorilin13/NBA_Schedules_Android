@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">NBA Schedules</string>
+    <string name="navigation_favorite">Favorite</string>
+    <string name="navigation_league">League</string>
+    <string name="navigation_settings">Settings</string>
 </resources>

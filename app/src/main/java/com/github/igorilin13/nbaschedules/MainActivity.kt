@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -23,6 +22,7 @@ import com.github.igorilin13.common.ui.theme.NBASchedulesTheme
 import com.github.igorilin13.data.settings.api.SettingsRepository
 import com.github.igorilin13.feature.favorite.api.FavoriteFeatureApi
 import com.github.igorilin13.feature.favorite.api.FavoriteFeatureApiFactory
+import com.github.igorilin13.nbaschedules.ui.main.MainScreen
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable(ROUTE_MAIN_SCREEN) {
-                        Text("Main")
+                        MainScreen()
                     }
 
                     favoriteFeatureApi.registerUi(
