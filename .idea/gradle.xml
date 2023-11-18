@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/common/ui" />
             <option value="$PROJECT_DIR$/common/util" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/data/games" />
             <option value="$PROJECT_DIR$/data/settings" />
             <option value="$PROJECT_DIR$/data/teams" />
             <option value="$PROJECT_DIR$/feature" />

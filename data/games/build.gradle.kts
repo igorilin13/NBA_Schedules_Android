@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.igorilin13.common.network"
+    namespace = "com.github.igorilin13.data.games"
     compileSdk = appConfig.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -25,10 +25,10 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.network)
-    ksp(libs.moshi.codegen)
+    implementation(project(":common:network:"))
+    implementation(project(":data:teams:"))
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
-    debugImplementation(libs.chucker)
-    releaseImplementation(libs.chucker.noop)
+    implementation(libs.bundles.network)
+    ksp(libs.moshi.codegen)
 }

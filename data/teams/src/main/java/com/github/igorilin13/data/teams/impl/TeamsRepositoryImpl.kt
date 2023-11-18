@@ -3,6 +3,7 @@ package com.github.igorilin13.data.teams.impl
 import com.github.igorilin13.data.teams.api.Team
 import com.github.igorilin13.data.teams.api.TeamsRepository
 import com.github.igorilin13.data.teams.impl.remote.TeamsRemoteDataSource
+import com.github.igorilin13.data.teams.impl.remote.toModel
 import javax.inject.Inject
 
 internal class TeamsRepositoryImpl @Inject constructor(
