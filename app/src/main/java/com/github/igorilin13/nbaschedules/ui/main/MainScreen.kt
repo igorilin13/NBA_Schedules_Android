@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.igorilin13.common.ui.theme.NBASchedulesTheme
+import com.github.igorilin13.feature.team.games.api.TeamGamesFeatureApi
 
 @Composable
-fun MainScreen() {
+fun MainScreen(teamGamesFeatureApi: TeamGamesFeatureApi) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -27,12 +27,10 @@ fun MainScreen() {
     ) { paddingValues ->
         NavHost(
             navController,
-            startDestination = "test",
+            startDestination = teamGamesFeatureApi.favoriteTeamGamesRoute(),
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable("test") {
-                Text(text = "Hello")
-            }
+            teamGamesFeatureApi.registerUi(this, onOpenFavoriteSelection = {})
         }
     }
 }
@@ -42,7 +40,7 @@ private fun BottomNavigation(modifier: Modifier = Modifier) {
     NavigationBar(modifier) {
         MainNavigationItem.values().forEach { item ->
             NavigationBarItem(
-                selected = item == MainNavigationItem.LEAGUE,
+                selected = item == MainNavigationItem.FAVORITE_TEAM,
                 label = {
                     Text(stringResource(item.label), style = MaterialTheme.typography.bodyMedium)
                 },

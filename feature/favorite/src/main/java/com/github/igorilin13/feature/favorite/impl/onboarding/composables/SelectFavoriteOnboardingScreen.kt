@@ -88,7 +88,7 @@ private fun DisplayPreview() {
     NBASchedulesTheme {
         SelectFavoriteOnboardingScreen(
             state = SelectFavoriteOnboardingState.Display(
-                teams = List(30) { Team(id = it + 1, fullName = "Team ${it + 1}") },
+                teams = List(30) { Team(id = it + 1, name = "Name", fullName = "Team ${it + 1}") },
                 selectedId = 2
             ),
             onSkipClick = {},

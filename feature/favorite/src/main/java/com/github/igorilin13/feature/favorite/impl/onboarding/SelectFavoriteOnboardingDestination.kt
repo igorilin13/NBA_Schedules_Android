@@ -1,9 +1,9 @@
 package com.github.igorilin13.feature.favorite.impl.onboarding
 
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -24,7 +24,7 @@ internal class SelectFavoriteOnboardingDestination(
     ) = navGraphBuilder.composable(fullRoute) {
         val component = remember { componentFactory.create() }
         val viewModel = viewModel { component.viewModel() }
-        val state by viewModel.uiState.collectAsState()
+        val state by viewModel.uiState.collectAsStateWithLifecycle()
 
         LaunchedEffect(viewModel) {
             viewModel.uiEvents.collect { event ->

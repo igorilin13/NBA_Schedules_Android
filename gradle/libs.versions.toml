@@ -26,6 +26,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-ktx = { module = "androidx.core:core-ktx", version.ref = "ktx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-ktx" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
@@ -59,7 +60,8 @@ compose = [
     "compose-ui",
     "compose-ui-graphics",
     "compose-navigation",
-    "compose-ui-tooling-preview"
+    "compose-ui-tooling-preview",
+    "androidx-lifecycle-runtime-compose"
 ]
 compose-debug = [
     "compose-ui-tooling",

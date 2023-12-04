@@ -1,6 +1,8 @@
 package com.github.igorilin13.data.settings.impl
 
 import com.github.igorilin13.data.settings.api.SettingsRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 internal class SettingsRepositoryImpl @Inject constructor(
@@ -17,5 +19,13 @@ internal class SettingsRepositoryImpl @Inject constructor(
 
     override suspend fun saveFavoriteTeam(id: Int) {
         localDataSource.setFavoriteTeam(id)
+    }
+
+    override fun getFavoriteTeamId(): Flow<Int?> {
+        return localDataSource.getFavoriteTeamId()
+    }
+
+    override fun shouldHideScores(): Flow<Boolean> {
+        return flowOf(false)
     }
 }

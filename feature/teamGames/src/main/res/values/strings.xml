@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_no_favorite_team">No favorite team selected</string>
+    <string name="action_select">Select</string>
+    <string name="games_load_error">Could not load games</string>
+    <string name="no_games_message">There are no games</string>
+    <string name="section_next_game">Next Game</string>
+    <string name="section_previous_game">Previous Game</string>
+    <string name="section_upcoming">Upcoming</string>
+    <string name="section_previous">Previous</string>
+</resources>

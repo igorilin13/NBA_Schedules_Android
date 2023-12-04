@@ -3,4 +3,7 @@
     <string name="navigation_favorite">Favorite</string>
     <string name="navigation_league">League</string>
     <string name="navigation_settings">Settings</string>
+    <string name="today">Today, %1$s</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow, %1$s</string>
 </resources>

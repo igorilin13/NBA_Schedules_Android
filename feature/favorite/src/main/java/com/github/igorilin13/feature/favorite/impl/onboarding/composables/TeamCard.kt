@@ -86,6 +86,10 @@ fun TeamCard(
 @Composable
 private fun Preview() {
     NBASchedulesTheme {
-        TeamCard(team = Team(id = 14, "Los Angeles Lakers"), isSelected = false, onClick = {})
+        TeamCard(
+            team = Team(id = 14, name = "Lakers", fullName = "Los Angeles Lakers"),
+            isSelected = false,
+            onClick = {}
+        )
     }
 }

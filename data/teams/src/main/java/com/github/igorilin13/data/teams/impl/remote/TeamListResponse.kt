@@ -11,5 +11,6 @@ internal class TeamListResponse(
 
 fun TeamResponse.toModel() = Team(
     id = id,
+    name = name,
     fullName = fullName
 )
