@@ -7,7 +7,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.github.igorilin13.common.ui.ScreenDestination
+import com.github.igorilin13.common.ui.screen.ScreenDestination
 import com.github.igorilin13.feature.favorite.impl.onboarding.composables.SelectFavoriteOnboardingScreen
 import com.github.igorilin13.feature.favorite.impl.onboarding.di.OnboardingScreenComponent
 import com.github.igorilin13.feature.favorite.impl.onboarding.state.SelectFavoriteOnboardingUiEvent

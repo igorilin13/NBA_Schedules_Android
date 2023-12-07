@@ -30,4 +30,5 @@ dependencies {
     ksp(libs.dagger.compiler)
     implementation(libs.bundles.network)
     ksp(libs.moshi.codegen)
+    implementation(libs.kotlin.coroutines)
 }

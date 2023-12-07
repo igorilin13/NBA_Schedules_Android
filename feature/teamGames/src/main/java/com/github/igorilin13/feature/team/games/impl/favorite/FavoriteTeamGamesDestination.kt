@@ -6,7 +6,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.github.igorilin13.common.ui.ScreenDestination
+import com.github.igorilin13.common.ui.screen.ScreenDestination
 import com.github.igorilin13.feature.team.games.impl.favorite.composables.FavoriteTeamGamesScreen
 import com.github.igorilin13.feature.team.games.impl.favorite.di.FavoriteTeamGamesScreenComponent
 
