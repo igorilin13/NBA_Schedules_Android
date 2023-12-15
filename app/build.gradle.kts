@@ -55,6 +55,7 @@ android {
 dependencies {
     implementation(project(":feature:favorite"))
     implementation(project(":feature:teamGames"))
+    implementation(project(":feature:leagueGames"))
     implementation(project(":data:settings"))
     implementation(project(":data:teams"))
     implementation(project(":data:games"))

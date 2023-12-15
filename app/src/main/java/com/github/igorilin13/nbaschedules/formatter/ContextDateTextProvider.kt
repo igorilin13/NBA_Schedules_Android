@@ -1,7 +1,7 @@
 package com.github.igorilin13.nbaschedules.formatter
 
 import android.content.Context
-import com.github.igorilin13.domain.DateTextProvider
+import com.github.igorilin13.domain.date.DateTextProvider
 import com.github.igorilin13.nbaschedules.R
 import javax.inject.Inject
 

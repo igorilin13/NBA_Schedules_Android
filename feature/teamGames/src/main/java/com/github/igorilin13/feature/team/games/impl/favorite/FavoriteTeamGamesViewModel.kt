@@ -2,23 +2,17 @@ package com.github.igorilin13.feature.team.games.impl.favorite
 
 import com.github.igorilin13.common.ui.screen.BaseViewModel
 import com.github.igorilin13.common.ui.screen.NoOpUiEvent
-import com.github.igorilin13.data.games.api.Game
 import com.github.igorilin13.data.games.api.GameStatus
-import com.github.igorilin13.data.games.api.GamesRepository
-import com.github.igorilin13.data.settings.api.SettingsRepository
-import com.github.igorilin13.domain.FormatGameDateUseCase
+import com.github.igorilin13.domain.game.GameItem
+import com.github.igorilin13.domain.game.favorite.FavoriteTeamGamesResult
+import com.github.igorilin13.domain.game.favorite.GetFavoriteTeamGamesUseCase
 import com.github.igorilin13.feature.team.games.impl.favorite.state.FavoriteTeamGamesState
-import com.github.igorilin13.feature.team.games.impl.favorite.state.GameItem
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 internal class FavoriteTeamGamesViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository,
-    private val gamesRepository: GamesRepository,
-    private val formatGameDateUseCase: FormatGameDateUseCase
+    private val getFavoriteTeamGamesUseCase: GetFavoriteTeamGamesUseCase
 ) : BaseViewModel<FavoriteTeamGamesState, NoOpUiEvent>() {
 
     override fun createDefaultState(): FavoriteTeamGamesState {
@@ -26,16 +20,13 @@ internal class FavoriteTeamGamesViewModel @Inject constructor(
     }
 
     override fun createUiStateFlow(): Flow<FavoriteTeamGamesState> {
-        return settingsRepository.getFavoriteTeamId().flatMapLatest { teamId ->
-            if (teamId != null) {
-                combine(
-                    gamesRepository.getGames(teamId),
-                    settingsRepository.shouldHideScores()
-                ) { gamesResult, hideScores ->
-                    gamesResult.fold(
+        return getFavoriteTeamGamesUseCase().map { result ->
+            when (result) {
+                is FavoriteTeamGamesResult.HasFavoriteTeam -> {
+                    result.games.fold(
                         onSuccess = { games ->
                             if (games.isNotEmpty()) {
-                                createDisplayState(games, hideScores)
+                                createDisplayState(games)
                             } else {
                                 FavoriteTeamGamesState.NoGamesAvailable
                             }
@@ -43,34 +34,25 @@ internal class FavoriteTeamGamesViewModel @Inject constructor(
                         onFailure = { FavoriteTeamGamesState.Error }
                     )
                 }
-            } else {
-                flowOf(FavoriteTeamGamesState.NoFavoriteTeam)
+
+                FavoriteTeamGamesResult.NoFavoriteTeam -> FavoriteTeamGamesState.NoFavoriteTeam
             }
         }
     }
 
     private fun createDisplayState(
-        games: List<Game>,
-        hideScores: Boolean
+        games: List<GameItem>
     ): FavoriteTeamGamesState.DisplayData {
         val pastGames = games
-            .filter { it.gameStatus == GameStatus.FINISHED }
-            .sortedByDescending { it.date }
-        val upcomingGames = games.filter { it.gameStatus != GameStatus.FINISHED }
+            .filter { it.model.gameStatus == GameStatus.FINISHED }
+            .sortedByDescending { it.model.date }
+        val upcomingGames = games.filter { it.model.gameStatus != GameStatus.FINISHED }
 
         return FavoriteTeamGamesState.DisplayData(
-            nextGame = upcomingGames.firstOrNull()?.toUiModel(hideScores),
-            previousGame = pastGames.firstOrNull()?.toUiModel(hideScores),
-            upcomingGames = upcomingGames.take(MAX_UPCOMING_GAMES).map { it.toUiModel(hideScores) },
-            previousGames = pastGames.map { it.toUiModel(hideScores) }
-        )
-    }
-
-    private fun Game.toUiModel(hideScores: Boolean): GameItem {
-        return GameItem(
-            model = this,
-            formattedDate = formatGameDateUseCase(date),
-            showScores = !hideScores
+            nextGame = upcomingGames.firstOrNull(),
+            previousGame = pastGames.firstOrNull(),
+            upcomingGames = upcomingGames.take(MAX_UPCOMING_GAMES),
+            previousGames = pastGames
         )
     }
 

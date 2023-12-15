@@ -26,6 +26,6 @@ internal class SettingsRepositoryImpl @Inject constructor(
     }
 
     override fun shouldHideScores(): Flow<Boolean> {
-        return flowOf(false)
+        return flowOf(true)
     }
 }

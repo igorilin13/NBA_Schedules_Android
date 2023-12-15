@@ -12,7 +12,7 @@ import javax.inject.Inject
 internal class GamesRepositoryImpl @Inject constructor(
     private val remoteSource: GamesRemoteDataSource
 ) : GamesRepository {
-    override suspend fun getGames(teamId: Int): Flow<Result<List<Game>>> {
+    override fun getGames(teamId: Int): Flow<Result<List<Game>>> {
         return flow {
             remoteSource.getTeamGames(teamId)
                 .map { games -> games.map { it.toModel() } }
@@ -20,7 +20,7 @@ internal class GamesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getLeagueGames(date: LocalDate): Flow<Result<List<Game>>> {
+    override fun getLeagueGames(date: LocalDate): Flow<Result<List<Game>>> {
         return flow {
             remoteSource.getLeagueGames(date)
                 .map { games -> games.map { it.toModel() } }

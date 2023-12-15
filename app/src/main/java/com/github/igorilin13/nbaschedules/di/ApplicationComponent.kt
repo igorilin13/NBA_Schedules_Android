@@ -5,6 +5,7 @@ import com.github.igorilin13.common.network.NetworkModule
 import com.github.igorilin13.data.settings.api.di.SettingsModule
 import com.github.igorilin13.feature.favorite.api.di.FavoriteFeatureComponent
 import com.github.igorilin13.feature.team.games.api.di.TeamGamesFeatureComponent
+import com.github.igorilin13.league.games.api.di.LeagueGamesFeatureComponent
 import com.github.igorilin13.nbaschedules.MainActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -18,6 +19,8 @@ interface ApplicationComponent {
     fun favoriteFeatureSubcomponent(): FavoriteFeatureComponent.Factory
 
     fun teamGamesFeatureSubcomponent(): TeamGamesFeatureComponent.Factory
+
+    fun leagueGamesFeatureSubcomponent(): LeagueGamesFeatureComponent.Factory
 
     @Component.Factory
     interface Factory {

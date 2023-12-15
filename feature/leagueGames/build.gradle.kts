@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.igorilin13.domain"
+    namespace = "com.github.igorilin13.feature.league.games"
     compileSdk = appConfig.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -15,6 +15,12 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -25,9 +31,17 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:games"))
-    implementation(project(":data:settings"))
+    implementation(project(":data:settings:"))
+    implementation(project(":data:games:"))
+    implementation(project(":data:teams:"))
+    implementation(project(":common:ui:"))
+    implementation(project(":common:util:"))
+    implementation(project(":domain"))
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
-    implementation(libs.kotlin.coroutines)
+    implementation(libs.bundles.network)
+
+    debugImplementation(libs.bundles.compose.debug)
 }

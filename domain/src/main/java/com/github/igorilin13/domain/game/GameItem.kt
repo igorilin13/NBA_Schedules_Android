@@ -1,8 +1,8 @@
-package com.github.igorilin13.feature.team.games.impl.favorite.state
+package com.github.igorilin13.domain.game
 
 import com.github.igorilin13.data.games.api.Game
 
-internal data class GameItem(
+data class GameItem(
     val model: Game,
     val formattedDate: String,
     val showScores: Boolean

@@ -24,6 +24,8 @@ import com.github.igorilin13.feature.favorite.api.FavoriteFeatureApi
 import com.github.igorilin13.feature.favorite.api.FavoriteFeatureApiFactory
 import com.github.igorilin13.feature.team.games.api.TeamGamesFeatureApi
 import com.github.igorilin13.feature.team.games.api.TeamGamesFeatureApiFactory
+import com.github.igorilin13.league.games.api.LeagueGamesFeatureApi
+import com.github.igorilin13.league.games.api.LeagueGamesFeatureApiFactory
 import com.github.igorilin13.nbaschedules.di.ApplicationComponent
 import com.github.igorilin13.nbaschedules.ui.main.MainScreen
 import javax.inject.Inject
@@ -35,6 +37,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var favoriteFeatureApi: FavoriteFeatureApi
     private lateinit var teamGamesFeatureApi: TeamGamesFeatureApi
+    private lateinit var leagueGamesFeatureApi: LeagueGamesFeatureApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -55,7 +58,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable(ROUTE_MAIN_SCREEN) {
-                        MainScreen(teamGamesFeatureApi)
+                        MainScreen(teamGamesFeatureApi, leagueGamesFeatureApi)
                     }
 
                     favoriteFeatureApi.registerUi(
@@ -72,6 +75,8 @@ class MainActivity : ComponentActivity() {
             FavoriteFeatureApiFactory.create(appComponent.favoriteFeatureSubcomponent())
         teamGamesFeatureApi =
             TeamGamesFeatureApiFactory.create(appComponent.teamGamesFeatureSubcomponent())
+        leagueGamesFeatureApi =
+            LeagueGamesFeatureApiFactory.create(appComponent.leagueGamesFeatureSubcomponent())
     }
 
     @Composable

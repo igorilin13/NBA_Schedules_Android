@@ -21,10 +21,14 @@ import com.github.igorilin13.common.ui.composables.ErrorDisplay
 import com.github.igorilin13.common.ui.composables.GameCard
 import com.github.igorilin13.common.ui.composables.LoadingDisplay
 import com.github.igorilin13.common.ui.theme.NBASchedulesTheme
+import com.github.igorilin13.data.games.api.Game
 import com.github.igorilin13.data.games.api.GameStatus
+import com.github.igorilin13.data.teams.api.Team
+import com.github.igorilin13.domain.game.GameItem
 import com.github.igorilin13.feature.team.games.R
 import com.github.igorilin13.feature.team.games.impl.favorite.state.FavoriteTeamGamesState
-import com.github.igorilin13.feature.team.games.impl.favorite.state.GameItem
+import java.time.ZonedDateTime
+import com.github.igorilin13.common.ui.R as utilR
 
 @Composable
 internal fun FavoriteTeamGamesScreen(
@@ -66,14 +70,14 @@ internal fun FavoriteTeamGamesScreen(
 
         FavoriteTeamGamesState.Error -> {
             ErrorDisplay(
-                stringResource(R.string.games_load_error),
+                stringResource(utilR.string.games_load_error),
                 Modifier.fillMaxSize()
             )
         }
 
         FavoriteTeamGamesState.NoGamesAvailable -> {
             ErrorDisplay(
-                stringResource(R.string.no_games_message),
+                stringResource(utilR.string.no_games_message),
                 Modifier.fillMaxSize()
             )
         }
@@ -101,6 +105,39 @@ private fun LazyListScope.addSection(@StringRes title: Int, items: List<GameItem
             visitorTeamScore = item.model.visitorTeamScore,
             isPostseason = item.model.postseason,
             modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun DataPreview() {
+    val mockItem = GameItem(
+        model = Game(
+            id = 0,
+            date = ZonedDateTime.now(),
+            homeTeam = Team(1, "Team", "Team name full"),
+            homeTeamScore = 0,
+            postseason = false,
+            time = null,
+            visitorTeamScore = 0,
+            visitorTeam = Team(2, "Team", "Team name full"),
+            gameStatus = GameStatus.SCHEDULED
+        ),
+        formattedDate = "Today",
+        showScores = true
+    )
+
+    NBASchedulesTheme {
+        FavoriteTeamGamesScreen(
+            state = FavoriteTeamGamesState.DisplayData(
+                previousGame = mockItem,
+                nextGame = mockItem,
+                upcomingGames = List(10) { mockItem },
+                previousGames = List(10) { mockItem }
+            ),
+            onSelectFavoriteClick = {}
         )
     }
 }

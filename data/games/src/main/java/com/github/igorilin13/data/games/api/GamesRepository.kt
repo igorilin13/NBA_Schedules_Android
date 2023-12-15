@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 interface GamesRepository {
-    suspend fun getGames(teamId: Int): Flow<Result<List<Game>>>
+    fun getGames(teamId: Int): Flow<Result<List<Game>>>
 
-    suspend fun getLeagueGames(date: LocalDate): Flow<Result<List<Game>>>
+    fun getLeagueGames(date: LocalDate): Flow<Result<List<Game>>>
 }

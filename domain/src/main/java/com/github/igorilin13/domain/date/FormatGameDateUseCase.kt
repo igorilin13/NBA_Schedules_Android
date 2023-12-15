@@ -1,4 +1,4 @@
-package com.github.igorilin13.domain
+package com.github.igorilin13.domain.date
 
 import java.time.LocalDate
 import java.time.ZonedDateTime
