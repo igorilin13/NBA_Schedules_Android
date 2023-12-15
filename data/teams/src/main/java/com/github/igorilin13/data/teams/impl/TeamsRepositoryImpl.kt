@@ -6,6 +6,7 @@ import com.github.igorilin13.data.teams.impl.remote.TeamsRemoteDataSource
 import com.github.igorilin13.data.teams.impl.remote.toModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 internal class TeamsRepositoryImpl @Inject constructor(
@@ -18,6 +19,12 @@ internal class TeamsRepositoryImpl @Inject constructor(
                     .getTeams()
                     .map { teams -> teams.map { it.toModel() } }
             )
+        }
+    }
+
+    override fun getTeam(id: Int): Flow<Result<Team>> {
+        return getTeams().map { allTeamsResult ->
+            allTeamsResult.map { teams -> teams.first { it.id == id } }
         }
     }
 }

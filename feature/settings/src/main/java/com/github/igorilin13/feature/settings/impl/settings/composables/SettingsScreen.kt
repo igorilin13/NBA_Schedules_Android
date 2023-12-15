@@ -17,11 +17,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.igorilin13.common.ui.theme.NBASchedulesTheme
+import com.github.igorilin13.data.teams.api.Team
 import com.github.igorilin13.feature.settings.R
+import com.github.igorilin13.feature.settings.impl.settings.state.FavoriteTeamSettingState
 import com.github.igorilin13.feature.settings.impl.settings.state.SettingsState
 
 @Composable
-internal fun SettingsScreen(state: SettingsState, onHideScoresChange: (Boolean) -> Unit) {
+internal fun SettingsScreen(
+    state: SettingsState,
+    onHideScoresChange: (Boolean) -> Unit,
+    onSelectFavoriteTeamClick: () -> Unit
+) {
     Column(Modifier.fillMaxSize()) {
         Text(
             stringResource(R.string.title_settings),
@@ -47,6 +53,14 @@ internal fun SettingsScreen(state: SettingsState, onHideScoresChange: (Boolean) 
                 )
             }
         }
+
+        FavoriteTeamSetting(
+            state = state.favoriteTeamState,
+            modifier = Modifier
+                .padding(top = 12.dp)
+                .clickable(onClick = onSelectFavoriteTeamClick)
+                .padding(start = 24.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+        )
     }
 }
 
@@ -56,8 +70,12 @@ internal fun SettingsScreen(state: SettingsState, onHideScoresChange: (Boolean) 
 private fun Preview() {
     NBASchedulesTheme {
         SettingsScreen(
-            state = SettingsState(shouldHideScores = true),
-            onHideScoresChange = {}
+            state = SettingsState(
+                shouldHideScores = true,
+                favoriteTeamState = FavoriteTeamSettingState.HasFavorite(Team(14, "Team", "Team"))
+            ),
+            onHideScoresChange = {},
+            onSelectFavoriteTeamClick = {}
         )
     }
 }

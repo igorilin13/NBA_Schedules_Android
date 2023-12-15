@@ -22,6 +22,10 @@ internal class SettingsDestination(
         val viewModel = viewModel { component.viewModel() }
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-        SettingsScreen(state, onHideScoresChange = viewModel::setHideScores)
+        SettingsScreen(
+            state,
+            onHideScoresChange = viewModel::setHideScores,
+            onSelectFavoriteTeamClick = {}
+        )
     }
 }

@@ -4,23 +4,49 @@ import androidx.lifecycle.viewModelScope
 import com.github.igorilin13.common.ui.screen.BaseViewModel
 import com.github.igorilin13.common.ui.screen.NoOpUiEvent
 import com.github.igorilin13.data.settings.api.SettingsRepository
+import com.github.igorilin13.data.teams.api.TeamsRepository
+import com.github.igorilin13.feature.settings.impl.settings.state.FavoriteTeamSettingState
 import com.github.igorilin13.feature.settings.impl.settings.state.SettingsState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class SettingsViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val teamsRepository: TeamsRepository
 ) : BaseViewModel<SettingsState, NoOpUiEvent>() {
 
     override fun createDefaultState(): SettingsState {
-        return SettingsState(shouldHideScores = null)
+        return SettingsState(
+            shouldHideScores = null,
+            favoriteTeamState = FavoriteTeamSettingState.LoadingInfo
+        )
     }
 
     override fun createUiStateFlow(): Flow<SettingsState> {
-        return settingsRepository.shouldHideScores().map { hideScores ->
-            SettingsState(shouldHideScores = hideScores)
+        val favoriteTeamState = settingsRepository.getFavoriteTeamId().flatMapLatest { teamId ->
+            if (teamId != null) {
+                teamsRepository.getTeam(teamId).map { result ->
+                    result.fold(
+                        onSuccess = { FavoriteTeamSettingState.HasFavorite(it) },
+                        onFailure = { FavoriteTeamSettingState.Error }
+                    )
+                }
+            } else {
+                flowOf(FavoriteTeamSettingState.NoFavorite)
+            }
+        }.onStart { emit(FavoriteTeamSettingState.LoadingInfo) }
+
+        return combine(
+            settingsRepository.shouldHideScores(),
+            favoriteTeamState
+        ) { hideScores, favoriteTeam ->
+            SettingsState(shouldHideScores = hideScores, favoriteTeamState = favoriteTeam)
         }
     }
 
