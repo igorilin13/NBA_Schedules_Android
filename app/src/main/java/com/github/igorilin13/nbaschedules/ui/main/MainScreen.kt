@@ -20,13 +20,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.igorilin13.common.ui.theme.NBASchedulesTheme
+import com.github.igorilin13.feature.settings.api.SettingsFeatureApi
 import com.github.igorilin13.feature.team.games.api.TeamGamesFeatureApi
 import com.github.igorilin13.league.games.api.LeagueGamesFeatureApi
 
 @Composable
 fun MainScreen(
     teamGamesFeatureApi: TeamGamesFeatureApi,
-    leagueGamesFeatureApi: LeagueGamesFeatureApi
+    leagueGamesFeatureApi: LeagueGamesFeatureApi,
+    settingsFeatureApi: SettingsFeatureApi
 ) {
     val navController = rememberNavController()
     val currentEntry by navController.currentBackStackEntryAsState()
@@ -54,6 +56,7 @@ fun MainScreen(
         ) {
             teamGamesFeatureApi.registerUi(this, MainNavigationItem.FAVORITE_TEAM.route) {}
             leagueGamesFeatureApi.registerUi(this, MainNavigationItem.LEAGUE.route)
+            settingsFeatureApi.registerUi(this, MainNavigationItem.SETTINGS.route)
         }
     }
 }
