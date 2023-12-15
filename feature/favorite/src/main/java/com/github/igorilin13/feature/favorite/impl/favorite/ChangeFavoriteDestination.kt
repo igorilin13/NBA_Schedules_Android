@@ -2,7 +2,6 @@ package com.github.igorilin13.feature.favorite.impl.favorite
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -24,8 +23,7 @@ internal class ChangeFavoriteDestination(
         navGraphBuilder: NavGraphBuilder,
         onFavoriteChangeComplete: () -> Unit,
     ) = navGraphBuilder.composable(fullRoute) {
-        val component = remember { componentFactory.create() }
-        val viewModel = viewModel { component.viewModel() }
+        val viewModel = viewModel { componentFactory.create().viewModel() }
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
         LaunchedEffect(viewModel) {

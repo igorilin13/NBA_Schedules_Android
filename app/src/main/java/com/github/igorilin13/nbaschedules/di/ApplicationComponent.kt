@@ -3,6 +3,7 @@ package com.github.igorilin13.nbaschedules.di
 import android.content.Context
 import com.github.igorilin13.common.network.NetworkModule
 import com.github.igorilin13.data.settings.api.di.SettingsModule
+import com.github.igorilin13.data.teams.api.di.TeamsModule
 import com.github.igorilin13.feature.favorite.api.di.FavoriteFeatureComponent
 import com.github.igorilin13.feature.settings.api.di.SettingsFeatureComponent
 import com.github.igorilin13.feature.team.games.api.di.TeamGamesFeatureComponent
@@ -13,7 +14,14 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [TextProviderModule::class, NetworkModule::class, SettingsModule::class])
+@Component(
+    modules = [
+        TeamsModule::class,
+        TextProviderModule::class,
+        NetworkModule::class,
+        SettingsModule::class
+    ]
+)
 interface ApplicationComponent {
     fun inject(activity: MainActivity)
 

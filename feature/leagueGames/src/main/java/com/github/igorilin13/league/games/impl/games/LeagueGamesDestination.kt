@@ -1,7 +1,6 @@
 package com.github.igorilin13.league.games.impl.games
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
@@ -18,8 +17,7 @@ internal class LeagueGamesDestination(
     fun register(
         navGraphBuilder: NavGraphBuilder
     ) = navGraphBuilder.composable(fullRoute) {
-        val component = remember { componentFactory.create() }
-        val viewModel = viewModel { component.viewModel() }
+        val viewModel = viewModel { componentFactory.create().viewModel() }
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
         LeagueGamesScreen(state)

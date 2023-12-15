@@ -1,7 +1,6 @@
 package com.github.igorilin13.feature.settings.impl.settings
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
@@ -19,8 +18,7 @@ internal class SettingsDestination(
         navGraphBuilder: NavGraphBuilder,
         openFavoriteSelection: () -> Unit
     ) = navGraphBuilder.composable(fullRoute) {
-        val component = remember { componentFactory.create() }
-        val viewModel = viewModel { component.viewModel() }
+        val viewModel = viewModel { componentFactory.create().viewModel() }
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
         SettingsScreen(
