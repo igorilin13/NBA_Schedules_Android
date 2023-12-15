@@ -28,7 +28,8 @@ import com.github.igorilin13.league.games.api.LeagueGamesFeatureApi
 fun MainScreen(
     teamGamesFeatureApi: TeamGamesFeatureApi,
     leagueGamesFeatureApi: LeagueGamesFeatureApi,
-    settingsFeatureApi: SettingsFeatureApi
+    settingsFeatureApi: SettingsFeatureApi,
+    openFavoriteSelection: () -> Unit
 ) {
     val navController = rememberNavController()
     val currentEntry by navController.currentBackStackEntryAsState()
@@ -54,9 +55,19 @@ fun MainScreen(
             startDestination = MainNavigationItem.FAVORITE_TEAM.route,
             modifier = Modifier.padding(paddingValues)
         ) {
-            teamGamesFeatureApi.registerUi(this, MainNavigationItem.FAVORITE_TEAM.route) {}
+            teamGamesFeatureApi.registerUi(
+                this,
+                MainNavigationItem.FAVORITE_TEAM.route,
+                openFavoriteSelection
+            )
+
             leagueGamesFeatureApi.registerUi(this, MainNavigationItem.LEAGUE.route)
-            settingsFeatureApi.registerUi(this, MainNavigationItem.SETTINGS.route)
+
+            settingsFeatureApi.registerUi(
+                this,
+                MainNavigationItem.SETTINGS.route,
+                openFavoriteSelection
+            )
         }
     }
 }

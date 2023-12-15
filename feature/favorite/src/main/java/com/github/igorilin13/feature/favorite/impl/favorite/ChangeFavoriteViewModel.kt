@@ -1,4 +1,4 @@
-package com.github.igorilin13.feature.favorite.impl.onboarding
+package com.github.igorilin13.feature.favorite.impl.favorite
 
 import androidx.lifecycle.viewModelScope
 import com.github.igorilin13.data.settings.api.SettingsRepository
@@ -8,25 +8,14 @@ import com.github.igorilin13.feature.favorite.impl.core.state.SelectFavoriteTeam
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-internal class SelectFavoriteOnboardingViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository,
+internal class ChangeFavoriteViewModel @Inject constructor(
+    settingsRepository: SettingsRepository,
     teamsRepository: TeamsRepository
 ) : BaseSelectFavoriteTeamViewModel(settingsRepository, teamsRepository) {
 
-    fun skipOnboarding() {
-        completeOnboarding(saveSelected = false)
-    }
-
     override fun confirmSelection() {
-        completeOnboarding(saveSelected = true)
-    }
-
-    private fun completeOnboarding(saveSelected: Boolean) {
         viewModelScope.launch {
-            if (saveSelected) {
-                saveSelectedTeam()
-            }
-            settingsRepository.setOnboardingComplete()
+            saveSelectedTeam()
             _uiEvents.tryEmit(SelectFavoriteTeamUiEvent.SelectionComplete)
         }
     }

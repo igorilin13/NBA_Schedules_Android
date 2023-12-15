@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -34,7 +35,7 @@ internal class SettingsLocalDataSource @Inject constructor(
     }
 
     fun getFavoriteTeamId(): Flow<Int?> {
-        return dataStore.data.map { it[favoriteTeamKey] }
+        return dataStore.data.map { it[favoriteTeamKey] }.distinctUntilChanged()
     }
 
     suspend fun setHideScores(value: Boolean) {
@@ -44,6 +45,6 @@ internal class SettingsLocalDataSource @Inject constructor(
     }
 
     fun shouldHideScores(): Flow<Boolean?> {
-        return dataStore.data.map { it[hideScoresKey] }
+        return dataStore.data.map { it[hideScoresKey] }.distinctUntilChanged()
     }
 }

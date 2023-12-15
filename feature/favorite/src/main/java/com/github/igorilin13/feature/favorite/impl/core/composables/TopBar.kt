@@ -1,4 +1,4 @@
-package com.github.igorilin13.feature.favorite.impl.onboarding.composables
+package com.github.igorilin13.feature.favorite.impl.core.composables
 
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -16,7 +16,10 @@ import com.github.igorilin13.feature.favorite.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun TopBar(onSkipClick: () -> Unit, modifier: Modifier = Modifier) {
+internal fun TopBar(
+    onSkipClick: (() -> Unit)?,
+    modifier: Modifier = Modifier
+) {
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -28,16 +31,18 @@ internal fun TopBar(onSkipClick: () -> Unit, modifier: Modifier = Modifier) {
             containerColor = MaterialTheme.colorScheme.background
         ),
         actions = {
-            TextButton(
-                onClick = onSkipClick,
-                colors = ButtonDefaults.textButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onBackground
-                )
-            ) {
-                Text(
-                    stringResource(R.string.action_skip),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+            if (onSkipClick != null) {
+                TextButton(
+                    onClick = onSkipClick,
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = MaterialTheme.colorScheme.onBackground
+                    )
+                ) {
+                    Text(
+                        stringResource(R.string.action_skip),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         },
         modifier = modifier

@@ -1,4 +1,4 @@
-package com.github.igorilin13.feature.favorite.impl.onboarding
+package com.github.igorilin13.feature.favorite.impl.favorite
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,17 +12,17 @@ import com.github.igorilin13.common.ui.screen.ScreenDestination
 import com.github.igorilin13.feature.favorite.R
 import com.github.igorilin13.feature.favorite.impl.core.composables.SelectFavoriteTeamScreen
 import com.github.igorilin13.feature.favorite.impl.core.state.SelectFavoriteTeamUiEvent
-import com.github.igorilin13.feature.favorite.impl.onboarding.di.OnboardingScreenComponent
+import com.github.igorilin13.feature.favorite.impl.favorite.di.ChangeFavoriteScreenComponent
 
-internal class SelectFavoriteOnboardingDestination(
-    private val componentFactory: OnboardingScreenComponent.Factory
+internal class ChangeFavoriteDestination(
+    private val componentFactory: ChangeFavoriteScreenComponent.Factory
 ) : ScreenDestination {
 
-    override val fullRoute = "onboarding"
+    override val fullRoute = "change_favorite"
 
     fun register(
         navGraphBuilder: NavGraphBuilder,
-        onOnboardingComplete: () -> Unit
+        onFavoriteChangeComplete: () -> Unit,
     ) = navGraphBuilder.composable(fullRoute) {
         val component = remember { componentFactory.create() }
         val viewModel = viewModel { component.viewModel() }
@@ -31,17 +31,17 @@ internal class SelectFavoriteOnboardingDestination(
         LaunchedEffect(viewModel) {
             viewModel.uiEvents.collect { event ->
                 when (event) {
-                    SelectFavoriteTeamUiEvent.SelectionComplete -> onOnboardingComplete()
+                    SelectFavoriteTeamUiEvent.SelectionComplete -> onFavoriteChangeComplete()
                 }
             }
         }
 
         SelectFavoriteTeamScreen(
             state,
-            onSkipClick = viewModel::skipOnboarding,
+            onSkipClick = null,
             onTeamClick = viewModel::selectTeam,
             onConfirmClick = viewModel::confirmSelection,
-            saveTeamButtonText = stringResource(R.string.action_continue)
+            saveTeamButtonText = stringResource(R.string.action_confirm)
         )
     }
 }

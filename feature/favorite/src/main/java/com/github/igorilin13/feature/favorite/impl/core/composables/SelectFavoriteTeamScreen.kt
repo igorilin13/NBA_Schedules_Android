@@ -1,4 +1,4 @@
-package com.github.igorilin13.feature.favorite.impl.onboarding.composables
+package com.github.igorilin13.feature.favorite.impl.core.composables
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -24,19 +24,20 @@ import com.github.igorilin13.common.ui.composables.LoadingDisplay
 import com.github.igorilin13.common.ui.theme.NBASchedulesTheme
 import com.github.igorilin13.data.teams.api.Team
 import com.github.igorilin13.feature.favorite.R
-import com.github.igorilin13.feature.favorite.impl.onboarding.state.SelectFavoriteOnboardingState
+import com.github.igorilin13.feature.favorite.impl.core.state.SelectFavoriteTeamState
 
 @Composable
-internal fun SelectFavoriteOnboardingScreen(
-    state: SelectFavoriteOnboardingState,
-    onSkipClick: () -> Unit,
+internal fun SelectFavoriteTeamScreen(
+    state: SelectFavoriteTeamState,
+    saveTeamButtonText: String,
     onTeamClick: (Team) -> Unit,
-    onConfirmClick: () -> Unit
+    onConfirmClick: () -> Unit,
+    onSkipClick: (() -> Unit)?,
 ) {
     Scaffold(
         topBar = { TopBar(onSkipClick) },
         bottomBar = {
-            if (state is SelectFavoriteOnboardingState.Display && state.selectedId != null) {
+            if (state is SelectFavoriteTeamState.Display && state.selectedId != null) {
                 Button(
                     onClick = onConfirmClick,
                     modifier = Modifier
@@ -44,14 +45,14 @@ internal fun SelectFavoriteOnboardingScreen(
                         .padding(start = 16.dp, top = 16.dp, end = 16.dp)
                         .navigationBarsPadding()
                 ) {
-                    Text(stringResource(R.string.action_continue))
+                    Text(saveTeamButtonText)
                 }
             }
         }
     ) { paddingValues ->
         Box(Modifier.padding(paddingValues)) {
             when (state) {
-                is SelectFavoriteOnboardingState.Display -> {
+                is SelectFavoriteTeamState.Display -> {
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(minSize = 128.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -68,14 +69,14 @@ internal fun SelectFavoriteOnboardingScreen(
                     }
                 }
 
-                SelectFavoriteOnboardingState.Error -> ErrorDisplay(
+                SelectFavoriteTeamState.Error -> ErrorDisplay(
                     message = stringResource(R.string.team_list_load_error),
                     Modifier
                         .fillMaxSize()
                         .padding(16.dp)
                 )
 
-                SelectFavoriteOnboardingState.Loading -> LoadingDisplay(Modifier.fillMaxSize())
+                SelectFavoriteTeamState.Loading -> LoadingDisplay(Modifier.fillMaxSize())
             }
         }
     }
@@ -86,11 +87,12 @@ internal fun SelectFavoriteOnboardingScreen(
 @Composable
 private fun DisplayPreview() {
     NBASchedulesTheme {
-        SelectFavoriteOnboardingScreen(
-            state = SelectFavoriteOnboardingState.Display(
+        SelectFavoriteTeamScreen(
+            state = SelectFavoriteTeamState.Display(
                 teams = List(30) { Team(id = it + 1, name = "Name", fullName = "Team ${it + 1}") },
                 selectedId = 2
             ),
+            saveTeamButtonText = "Continue",
             onSkipClick = {},
             onTeamClick = {},
             onConfirmClick = {}
@@ -103,8 +105,9 @@ private fun DisplayPreview() {
 @Composable
 private fun ErrorPreview() {
     NBASchedulesTheme {
-        SelectFavoriteOnboardingScreen(
-            state = SelectFavoriteOnboardingState.Error,
+        SelectFavoriteTeamScreen(
+            state = SelectFavoriteTeamState.Error,
+            saveTeamButtonText = "Continue",
             onSkipClick = {},
             onTeamClick = {},
             onConfirmClick = {}
@@ -117,8 +120,9 @@ private fun ErrorPreview() {
 @Composable
 private fun LoadingPreview() {
     NBASchedulesTheme {
-        SelectFavoriteOnboardingScreen(
-            state = SelectFavoriteOnboardingState.Loading,
+        SelectFavoriteTeamScreen(
+            state = SelectFavoriteTeamState.Loading,
+            saveTeamButtonText = "Continue",
             onSkipClick = {},
             onTeamClick = {},
             onConfirmClick = {}

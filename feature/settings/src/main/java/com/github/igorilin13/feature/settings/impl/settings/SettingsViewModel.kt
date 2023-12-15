@@ -36,11 +36,11 @@ internal class SettingsViewModel @Inject constructor(
                         onSuccess = { FavoriteTeamSettingState.HasFavorite(it) },
                         onFailure = { FavoriteTeamSettingState.Error }
                     )
-                }
+                }.onStart { emit(FavoriteTeamSettingState.LoadingInfo) }
             } else {
                 flowOf(FavoriteTeamSettingState.NoFavorite)
             }
-        }.onStart { emit(FavoriteTeamSettingState.LoadingInfo) }
+        }
 
         return combine(
             settingsRepository.shouldHideScores(),

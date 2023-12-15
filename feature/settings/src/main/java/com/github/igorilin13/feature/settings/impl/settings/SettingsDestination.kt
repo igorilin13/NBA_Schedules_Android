@@ -16,7 +16,8 @@ internal class SettingsDestination(
     override val fullRoute = "settings"
 
     fun register(
-        navGraphBuilder: NavGraphBuilder
+        navGraphBuilder: NavGraphBuilder,
+        openFavoriteSelection: () -> Unit
     ) = navGraphBuilder.composable(fullRoute) {
         val component = remember { componentFactory.create() }
         val viewModel = viewModel { component.viewModel() }
@@ -25,7 +26,7 @@ internal class SettingsDestination(
         SettingsScreen(
             state,
             onHideScoresChange = viewModel::setHideScores,
-            onSelectFavoriteTeamClick = {}
+            onSelectFavoriteTeamClick = openFavoriteSelection
         )
     }
 }

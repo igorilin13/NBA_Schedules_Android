@@ -1,4 +1,4 @@
-package com.github.igorilin13.feature.favorite.impl.onboarding.composables
+package com.github.igorilin13.feature.favorite.impl.core.composables
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -29,7 +29,7 @@ import com.github.igorilin13.common.ui.theme.NBASchedulesTheme
 import com.github.igorilin13.data.teams.api.Team
 
 @Composable
-fun TeamCard(
+internal fun TeamCard(
     team: Team,
     isSelected: Boolean,
     onClick: (Team) -> Unit,

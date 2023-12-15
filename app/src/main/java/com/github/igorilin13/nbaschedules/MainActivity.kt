@@ -53,23 +53,36 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             NBASchedulesTheme {
-                val navController = rememberNavController()
-
-                NavHost(navController, startDestination = ROUTE_START_SCREEN) {
-                    composable(ROUTE_START_SCREEN) {
-                        StartScreen(navController)
-                    }
-
-                    composable(ROUTE_MAIN_SCREEN) {
-                        MainScreen(teamGamesFeatureApi, leagueGamesFeatureApi, settingsFeatureApi)
-                    }
-
-                    favoriteFeatureApi.registerUi(
-                        this,
-                        onOnboardingComplete = { navController.navigate(ROUTE_MAIN_SCREEN) }
-                    )
-                }
+                Content()
             }
+        }
+    }
+
+    @Composable
+    internal fun Content() {
+        val navController = rememberNavController()
+
+        NavHost(navController, startDestination = ROUTE_START_SCREEN) {
+            composable(ROUTE_START_SCREEN) {
+                StartScreen(navController)
+            }
+
+            composable(ROUTE_MAIN_SCREEN) {
+                MainScreen(
+                    teamGamesFeatureApi,
+                    leagueGamesFeatureApi,
+                    settingsFeatureApi,
+                    openFavoriteSelection = {
+                        navController.navigate(favoriteFeatureApi.changeFavoriteNavigationRoute())
+                    }
+                )
+            }
+
+            favoriteFeatureApi.registerUi(
+                this,
+                onOnboardingComplete = { navController.navigate(ROUTE_MAIN_SCREEN) },
+                onFavoriteChangeComplete = { navController.popBackStack() }
+            )
         }
     }
 

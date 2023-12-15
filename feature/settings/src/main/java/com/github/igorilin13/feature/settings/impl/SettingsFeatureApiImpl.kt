@@ -12,12 +12,16 @@ internal class SettingsFeatureApiImpl(
 
     private val settingsDestination = SettingsDestination(component.settingsScreenComponent())
 
-    override fun registerUi(navGraphBuilder: NavGraphBuilder, route: String) {
+    override fun registerUi(
+        navGraphBuilder: NavGraphBuilder,
+        route: String,
+        openFavoriteSelection: () -> Unit
+    ) {
         navGraphBuilder.navigation(
             startDestination = settingsDestination.fullRoute,
             route = route
         ) {
-            settingsDestination.register(this)
+            settingsDestination.register(this, openFavoriteSelection)
         }
     }
 
