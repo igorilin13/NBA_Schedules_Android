@@ -15,6 +15,7 @@ internal class SettingsLocalDataSource @Inject constructor(
 ) {
     private val onboardingCompletedKey = booleanPreferencesKey("onboarding_completed")
     private val favoriteTeamKey = intPreferencesKey("favorite_team_id")
+    private val hideScoresKey = booleanPreferencesKey("hide_scores")
 
     suspend fun isOnboardingComplete(): Boolean {
         return dataStore.data.map { it[onboardingCompletedKey] ?: false }.first()
@@ -34,5 +35,15 @@ internal class SettingsLocalDataSource @Inject constructor(
 
     fun getFavoriteTeamId(): Flow<Int?> {
         return dataStore.data.map { it[favoriteTeamKey] }
+    }
+
+    suspend fun setHideScores(value: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[hideScoresKey] = value
+        }
+    }
+
+    fun shouldHideScores(): Flow<Boolean?> {
+        return dataStore.data.map { it[hideScoresKey] }
     }
 }

@@ -7,9 +7,11 @@ interface SettingsRepository {
 
     suspend fun setOnboardingComplete()
 
-    suspend fun saveFavoriteTeam(id: Int)
+    suspend fun setFavoriteTeam(id: Int)
 
     fun getFavoriteTeamId(): Flow<Int?>
 
     fun shouldHideScores(): Flow<Boolean>
+
+    suspend fun setHideScores(value: Boolean)
 }

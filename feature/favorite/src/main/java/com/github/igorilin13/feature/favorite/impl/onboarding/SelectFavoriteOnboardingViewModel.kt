@@ -52,7 +52,7 @@ internal class SelectFavoriteOnboardingViewModel @Inject constructor(
         viewModelScope.launch {
             if (saveSelected) {
                 selectedTeamId.value?.let { id ->
-                    settingsRepository.saveFavoriteTeam(id)
+                    settingsRepository.setFavoriteTeam(id)
                 }
             }
             settingsRepository.setOnboardingComplete()

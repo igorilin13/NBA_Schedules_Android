@@ -2,7 +2,7 @@ package com.github.igorilin13.data.settings.impl
 
 import com.github.igorilin13.data.settings.api.SettingsRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 internal class SettingsRepositoryImpl @Inject constructor(
@@ -17,7 +17,7 @@ internal class SettingsRepositoryImpl @Inject constructor(
         localDataSource.setOnboardingComplete(true)
     }
 
-    override suspend fun saveFavoriteTeam(id: Int) {
+    override suspend fun setFavoriteTeam(id: Int) {
         localDataSource.setFavoriteTeam(id)
     }
 
@@ -26,6 +26,10 @@ internal class SettingsRepositoryImpl @Inject constructor(
     }
 
     override fun shouldHideScores(): Flow<Boolean> {
-        return flowOf(true)
+        return localDataSource.shouldHideScores().map { it ?: false }
+    }
+
+    override suspend fun setHideScores(value: Boolean) {
+        localDataSource.setHideScores(value)
     }
 }
