@@ -25,8 +25,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":common:network:"))
-    implementation(project(":data:teams:"))
+    implementation(projects.common.network)
+    implementation(projects.data.teams)
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
     implementation(libs.bundles.network)

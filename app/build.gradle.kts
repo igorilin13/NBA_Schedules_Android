@@ -53,16 +53,16 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:favorite"))
-    implementation(project(":feature:teamGames"))
-    implementation(project(":feature:leagueGames"))
-    implementation(project(":feature:settings"))
-    implementation(project(":data:settings"))
-    implementation(project(":data:teams"))
-    implementation(project(":data:games"))
-    implementation(project(":common:network"))
-    implementation(project(":common:ui"))
-    implementation(project(":domain"))
+    implementation(projects.feature.favorite)
+    implementation(projects.feature.teamGames)
+    implementation(projects.feature.leagueGames)
+    implementation(projects.feature.settings)
+    implementation(projects.data.settings)
+    implementation(projects.data.teams)
+    implementation(projects.data.games)
+    implementation(projects.common.network)
+    implementation(projects.common.ui)
+    implementation(projects.domain)
 
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

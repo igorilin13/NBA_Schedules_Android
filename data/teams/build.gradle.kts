@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":common:network:"))
+    implementation(projects.common.network)
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
     implementation(libs.bundles.network)

@@ -31,10 +31,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:settings:"))
-    implementation(project(":data:teams:"))
-    implementation(project(":common:ui:"))
-    implementation(project(":common:util:"))
+    implementation(projects.data.settings)
+    implementation(projects.data.teams)
+    implementation(projects.common.ui)
+    implementation(projects.common.util)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.dagger)

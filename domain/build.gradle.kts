@@ -25,8 +25,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:games"))
-    implementation(project(":data:settings"))
+    implementation(projects.data.games)
+    implementation(projects.data.settings)
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
     implementation(libs.kotlin.coroutines)

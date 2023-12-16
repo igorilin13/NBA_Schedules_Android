@@ -20,7 +20,8 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "NBA Schedules"
+rootProject.name = "nbaschedules"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":data:settings")
 include(":feature:favorite")

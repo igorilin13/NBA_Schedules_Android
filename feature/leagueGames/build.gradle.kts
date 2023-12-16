@@ -31,12 +31,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:settings:"))
-    implementation(project(":data:games:"))
-    implementation(project(":data:teams:"))
-    implementation(project(":common:ui:"))
-    implementation(project(":common:util:"))
-    implementation(project(":domain"))
+    implementation(projects.data.settings)
+    implementation(projects.data.games)
+    implementation(projects.data.teams)
+    implementation(projects.common.ui)
+    implementation(projects.common.util)
+    implementation(projects.domain)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.dagger)
