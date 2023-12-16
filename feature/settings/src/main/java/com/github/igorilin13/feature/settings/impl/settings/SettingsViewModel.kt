@@ -7,6 +7,7 @@ import com.github.igorilin13.data.settings.api.SettingsRepository
 import com.github.igorilin13.data.teams.api.TeamsRepository
 import com.github.igorilin13.feature.settings.impl.settings.state.FavoriteTeamSettingState
 import com.github.igorilin13.feature.settings.impl.settings.state.SettingsState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val teamsRepository: TeamsRepository

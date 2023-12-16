@@ -1,35 +1,15 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.library.dagger)
 }
 
 android {
     namespace = "com.github.igorilin13.data.games"
-    compileSdk = appConfig.versions.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = appConfig.versions.minSdk.get().toInt()
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
     implementation(projects.common.network)
     implementation(projects.data.teams)
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
-    implementation(libs.bundles.network)
+    api(libs.bundles.network)
     ksp(libs.moshi.codegen)
-    implementation(libs.kotlin.coroutines)
 }
