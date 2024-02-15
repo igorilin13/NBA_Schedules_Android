@@ -8,8 +8,11 @@ import com.github.igorilin13.data.teams.impl.remote.toModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 @JsonClass(generateAdapter = true)
 internal data class GamesResponse(
@@ -48,10 +51,10 @@ internal fun GameResponse.toModel(): Game {
             // For upcoming games, the status field contains the correct date
             Instant.parse(status)
         } catch (e: Exception) {
-            Instant.parse(date)
+            parseDate(date)
         }
     } else {
-        Instant.parse(date)
+        parseDate(date)
     }
     val parsedDate = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault())
 
@@ -66,4 +69,11 @@ internal fun GameResponse.toModel(): Game {
         visitorTeam = visitorTeam.toModel(),
         gameStatus = gameStatus
     )
+}
+
+private fun parseDate(date: String): Instant {
+    return DateTimeFormatter.ISO_DATE
+        .parse(date, LocalDate::from)
+        .atStartOfDay()
+        .toInstant(ZoneOffset.UTC)
 }

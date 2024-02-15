@@ -15,7 +15,7 @@ internal class GamesRepositoryImpl @Inject constructor(
     override fun getGames(teamId: Int): Flow<Result<List<Game>>> {
         return flow {
             remoteSource.getTeamGames(teamId)
-                .map { games -> games.map { it.toModel() } }
+                .mapCatching { games -> games.map { it.toModel() } }
                 .also { emit(it) }
         }
     }
@@ -23,7 +23,7 @@ internal class GamesRepositoryImpl @Inject constructor(
     override fun getLeagueGames(date: LocalDate): Flow<Result<List<Game>>> {
         return flow {
             remoteSource.getLeagueGames(date)
-                .map { games -> games.map { it.toModel() } }
+                .mapCatching { games -> games.map { it.toModel() } }
                 .also { emit(it) }
         }
     }
