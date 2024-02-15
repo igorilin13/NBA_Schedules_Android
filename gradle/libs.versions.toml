@@ -1,6 +1,6 @@
 [versions]
 activity-compose = "1.8.2"
-android-gradle-plugin = "8.2.0"
+android-gradle-plugin = "8.2.2"
 android-tools = "31.2.0"
 androidx-junit = "1.1.5"
 chucker = "4.0.0"
