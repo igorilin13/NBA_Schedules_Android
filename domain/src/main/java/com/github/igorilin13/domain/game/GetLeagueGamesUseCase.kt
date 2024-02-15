@@ -9,13 +9,12 @@ import javax.inject.Inject
 
 class GetLeagueGamesUseCase @Inject constructor(
     private val gamesRepository: GamesRepository,
-    private val settingsRepository: SettingsRepository,
+    settingsRepository: SettingsRepository,
     formatGameDateUseCase: FormatGameDateUseCase
-) : BaseGetGamesUseCase(formatGameDateUseCase) {
+) : BaseGetGamesUseCase(formatGameDateUseCase, settingsRepository) {
     operator fun invoke(date: LocalDate): Flow<Result<List<GameItem>>> {
         return createResultFlow(
-            games = gamesRepository.getLeagueGames(date),
-            shouldHideScores = settingsRepository.shouldHideScores()
+            games = gamesRepository.getLeagueGames(date)
         )
     }
 }

@@ -14,15 +14,14 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 class GetFavoriteTeamGamesUseCase @Inject constructor(
     private val gamesRepository: GamesRepository,
-    private val settingsRepository: SettingsRepository,
+    settingsRepository: SettingsRepository,
     formatGameDateUseCase: FormatGameDateUseCase
-) : BaseGetGamesUseCase(formatGameDateUseCase) {
+) : BaseGetGamesUseCase(formatGameDateUseCase, settingsRepository) {
     operator fun invoke(): Flow<FavoriteTeamGamesResult> {
         return settingsRepository.getFavoriteTeamId().flatMapLatest { teamId ->
             if (teamId != null) {
                 createResultFlow(
-                    games = gamesRepository.getGames(teamId),
-                    shouldHideScores = settingsRepository.shouldHideScores()
+                    games = gamesRepository.getGames(teamId)
                 ).map { FavoriteTeamGamesResult.HasFavoriteTeam(it) }
             } else {
                 flowOf(FavoriteTeamGamesResult.NoFavoriteTeam)
