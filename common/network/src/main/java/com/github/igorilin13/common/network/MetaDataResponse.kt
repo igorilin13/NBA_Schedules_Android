@@ -5,10 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class MetaDataResponse(
-    @Json(name = "current_page")
-    val currentPage: Int,
-    @Json(name = "next_page")
-    val nextPage: Int?,
-    @Json(name = "per_page")
-    val perPage: Int,
+    @Json(name = "next_cursor")
+    val nextCursor: Int?,
 )

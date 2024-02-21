@@ -2,6 +2,7 @@ package com.github.igorilin13.data.teams.impl.di
 
 import android.content.Context
 import androidx.room.Room
+import com.github.igorilin13.common.network.ApiUrlQualifier
 import com.github.igorilin13.common.network.createNetworkService
 import com.github.igorilin13.data.teams.api.TeamsRepository
 import com.github.igorilin13.data.teams.impl.TeamsRepositoryImpl
@@ -21,8 +22,11 @@ internal interface TeamsModuleInternal {
 
     companion object {
         @Provides
-        fun teamsRemoteService(okHttpClient: OkHttpClient, moshi: Moshi, baseUrl: String) =
-            createNetworkService<TeamsRemoteService>(okHttpClient, moshi, baseUrl)
+        fun teamsRemoteService(
+            okHttpClient: OkHttpClient,
+            moshi: Moshi,
+            @ApiUrlQualifier baseUrl: String
+        ) = createNetworkService<TeamsRemoteService>(okHttpClient, moshi, baseUrl)
 
         @Singleton
         @Provides

@@ -1,6 +1,8 @@
 package com.github.igorilin13.nbaschedules.di
 
 import android.content.Context
+import com.github.igorilin13.common.network.ApiKeyQualifier
+import com.github.igorilin13.common.network.ApiUrlQualifier
 import com.github.igorilin13.common.network.NetworkModule
 import com.github.igorilin13.data.settings.api.di.SettingsModule
 import com.github.igorilin13.data.teams.api.di.TeamsModule
@@ -34,7 +36,8 @@ interface ApplicationComponent {
     interface Factory {
         fun create(
             @BindsInstance context: Context,
-            @BindsInstance baseServiceUrl: String
+            @BindsInstance @ApiUrlQualifier apiUrl: String,
+            @BindsInstance @ApiKeyQualifier apiKey: String,
         ): ApplicationComponent
     }
 }

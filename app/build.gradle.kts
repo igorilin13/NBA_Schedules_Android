@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.convention.app)
     alias(libs.plugins.convention.app.compose)
@@ -17,7 +19,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        buildConfigField("String", "SERVICE_URL", "\"https://www.balldontlie.io/\"")
+        buildConfigField("String", "API_URL", "\"https://api.balldontlie.io/v1/\"")
+        buildConfigField("String", "API_KEY", "\"${loadApiKey()}\"")
     }
 
     buildTypes {
@@ -63,4 +66,11 @@ dependencies {
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
+}
+
+fun loadApiKey(): String {
+    val file = rootProject.file("keys.properties")
+    return Properties()
+        .apply { load(file.inputStream()) }
+        .getProperty("API_KEY")
 }

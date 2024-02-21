@@ -14,13 +14,15 @@ internal class GamesRemoteDataSource @Inject constructor(
     suspend fun getTeamGames(teamId: Int): Result<List<GameResponse>> {
         return runCatching {
             val result = mutableListOf<GameResponse>()
-            var currentPage: Int? = 1
+            var cursor: Int? = null
+            var loadedAllPages = false
 
-            while (currentPage != null) {
+            while (!loadedAllPages) {
                 val response =
-                    service.getTeamGames(listOf(teamId), listOf(currentSeason), currentPage)
+                    service.getTeamGames(listOf(teamId), listOf(currentSeason), cursor)
                 result.addAll(response.data)
-                currentPage = response.meta.nextPage
+                cursor = response.meta.nextCursor
+                loadedAllPages = cursor == null
             }
 
             result.sortedBy { it.date }

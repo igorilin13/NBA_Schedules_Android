@@ -1,5 +1,6 @@
 package com.github.igorilin13.data.games.impl.di
 
+import com.github.igorilin13.common.network.ApiUrlQualifier
 import com.github.igorilin13.common.network.createNetworkService
 import com.github.igorilin13.data.games.api.GamesRepository
 import com.github.igorilin13.data.games.impl.GamesRepositoryImpl
@@ -17,7 +18,7 @@ internal interface GamesModuleInternal {
 
     companion object {
         @Provides
-        fun service(okHttpClient: OkHttpClient, moshi: Moshi, baseUrl: String) =
+        fun service(okHttpClient: OkHttpClient, moshi: Moshi, @ApiUrlQualifier baseUrl: String) =
             createNetworkService<GamesRemoteService>(okHttpClient, moshi, baseUrl)
     }
 }

@@ -16,8 +16,17 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun okHttp(chuckerInterceptor: ChuckerInterceptor): OkHttpClient =
-        OkHttpClient.Builder().addInterceptor(chuckerInterceptor).build()
+    internal fun authInterceptor(@ApiKeyQualifier apiKey: String) = AuthInterceptor(apiKey)
+
+    @Singleton
+    @Provides
+    internal fun okHttp(
+        chuckerInterceptor: ChuckerInterceptor,
+        authInterceptor: AuthInterceptor
+    ): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(chuckerInterceptor)
+        .addInterceptor(authInterceptor)
+        .build()
 
     @Singleton
     @Provides
